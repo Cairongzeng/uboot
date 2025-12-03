@@ -1,9 +1,6 @@
 U-Boot 1.1.4 modification for routers
 ==========
 
-This project is no longer maintained!
--------------------------------------
-
 Table of contents
 -----------------
 
