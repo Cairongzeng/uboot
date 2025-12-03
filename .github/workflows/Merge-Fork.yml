@@ -1,0 +1,57 @@
+name: Merge Other Fork
+
+on:
+  workflow_dispatch:
+    inputs:
+      fork_url:
+        description: '选择Fork仓库的URL'
+        required: true
+      branch:
+        description: '选择的分支名称'
+        required: true
+        default: 'main'
+      target_branch:
+        description: '目标分支（合并到哪里）'
+        required: false
+        default: 'main'
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出仓库代码
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: 配置 Git 用户
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
+    
+    - name: 添加远程仓库
+      run: |
+        git remote add other-fork ${{ github.event.inputs.fork_url }}
+        git fetch other-fork
+    
+    - name: 执行合并
+      run: |
+        TARGET_BRANCH="${{ github.event.inputs.target_branch || 'master' }}"
+        git checkout $TARGET_BRANCH
+        git pull origin $TARGET_BRANCH
+        
+        REMOTE_BRANCH="other-fork/${{ github.event.inputs.branch }}"
+        git merge $REMOTE_BRANCH --no-ff -m "Merge from other fork: ${{ github.event.inputs.branch }}"
+    
+    - name: 冲突检查
+      run: |
+        if git status --porcelain | grep -q "^UU\|^UD\|^DU"; then
+          echo "检测到冲突！需要手动解决。"
+          exit 1
+        fi
+    
+    - name: 推送更改
+      run: |
+        TARGET_BRANCH="${{ github.event.inputs.target_branch || 'master' }}"
+        git push origin $TARGET_BRANCH
