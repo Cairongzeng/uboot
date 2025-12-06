@@ -97,7 +97,7 @@ jobs:
     - name: 安装系统依赖
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential ccache ecj fastjar file g++ gawk gettext git java-propose-classpath libelf-dev libncurses5-dev libncursesw5-dev libssl-dev python3 python3-pip python3-setuptools python3-dev rsync unzip wget xsltproc zlib1g-dev subversion flex quilt clang bison gcc-multilib gperf jq cpio aria2 patch texinfo time autoconf automake libtool pkg-config python3-venv python3-unidecode python3-pysocks device-tree-compiler
+        sudo apt-get install -y build-essential ccache ecj fastjar file g++ gawk gettext git java-propose-classpath libelf-dev libncurses5-dev libncursesw5-dev libssl-dev python3 python3-pip python3-setuptools python3-dev rsync unzip wget xsltproc zlib1g-dev subversion flex quilt clang bison gcc-multilib gperf jq cpio aria2 patch texinfo time autoconf automake libtool pkg-config python3-venv python3-unidecode python3-socks device-tree-compiler
 
     - name: 配置ccache
       run: |
