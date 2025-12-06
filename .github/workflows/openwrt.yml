@@ -36,7 +36,7 @@ on:
       packages:
         description: '定制软件包（逗号分隔）'
         required: false
-        default: 'luci-theme-argon,luci-app-usb-printer,luci-app-dufs,tailscale,luci-app-vlmcsd,luci-app-wol,luci-app-ttyd,luci-app-adblock'
+        default: 'luci-theme-argon,luci-app-usb-printer,luci-app-dufs,tailscale,luci-app-wol,luci-app-ttyd,luci-app-adblock'
         type: string
       clean_build:
         description: '全新构建（清理缓存）'
@@ -102,7 +102,7 @@ jobs:
     - name: 配置ccache
       run: |
         mkdir -p .ccache
-        echo "max_size = 10G" > .ccache/ccache.conf
+        echo "max_size = 2G" > .ccache/ccache.conf
         echo "cache_dir = $(pwd)/.ccache" >> .ccache/ccache.conf
         echo "compression = true" >> .ccache/ccache.conf
         echo "compression_level = 1" >> .ccache/ccache.conf
